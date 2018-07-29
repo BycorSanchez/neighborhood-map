@@ -65,7 +65,7 @@ class App extends Component {
     markers.filter(marker =>
       match.test(marker.title)? (marker.setVisible(true)): (marker.setVisible(false))
     );
-    this.setState({ query, markers });
+    this.setState({ markers });
   }
 
   render() {
