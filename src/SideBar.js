@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchIcon from "@material-ui/icons/Search";
 
 const SideBar = props => {
-    const { mobileOpen, onSidebarClose } = props;
+    const { markers, mobileOpen, onSidebarClose } = props;
 
     const sidebar = (
         <div className="sidebar">
@@ -27,12 +27,20 @@ const SideBar = props => {
                 fullWidth={true}
             />
             <List>
-                <ListItem button className="list-item">
-                    <ListItemText primary="Statue of Liberty National Monument" secondary="New York, NY 10004"/>
-                </ListItem>
-                <ListItem button className="list-item">
-                    <ListItemText primary="American Museum of Natural History" secondary="Central Park West & 79th St, New York, NY 10024"/>
-                </ListItem>
+                {   markers &&
+                    markers.map(marker => (
+                        <ListItem
+                            button
+                            key={marker.id}
+                            className="list-item"
+                        >
+                            <ListItemText
+                                primary={marker.title}
+                                secondary={marker.address}
+                            />
+                        </ListItem>
+                    ))
+                }
             </List>
         </div>
     );
@@ -64,6 +72,7 @@ const SideBar = props => {
 }
 
 SideBar.propTypes = {
+    markers: PropTypes.array.isRequired,
     mobileOpen: PropTypes.bool.isRequired,
     onSidebarClose: PropTypes.func.isRequired
 }
