@@ -3,6 +3,7 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import escapeRegExp from 'escape-string-regexp';
 import * as locations from "./data/locations.json";
+import * as mapStyles from "./data/mapstyle.json";
 import "./App.css";
 
 class App extends Component {
@@ -36,7 +37,8 @@ class App extends Component {
     //Set default location & zoom (New York)
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 40.7413549, lng: -73.99802439999996 },
-      zoom: 13
+      zoom: 13,
+      styles: mapStyles
     });
 
     //On map click, hide all opened info window
