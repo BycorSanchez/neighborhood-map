@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Drawer from "@material-ui/core/Drawer";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
 import SearchIcon from "@material-ui/icons/Search";
 
 const SideBar = props => {
@@ -60,6 +61,11 @@ const SideBar = props => {
             </Drawer>
         </div>
     );
+}
+
+SideBar.propTypes = {
+    mobileOpen: PropTypes.bool.isRequired,
+    onSidebarClose: PropTypes.func.isRequired
 }
 
 export default SideBar;
