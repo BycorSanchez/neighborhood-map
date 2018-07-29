@@ -1,0 +1,83 @@
+[
+    {
+        "place_id": "ChIJPTacEpBQwokRKwIlDXelxkA",
+        "name": "Statue of Liberty National Monument",
+        "address": "Statue of Liberty National Monument, New York, NY 10004, USA",
+        "location": {
+            "lat": 40.6892494,
+            "lng": -74.04450039999999
+        }
+    },
+    {
+        "place_id": "ChIJK3vOQyNawokRXEa9errdJiU",
+        "name": "Brooklyn Bridge",
+        "address": "Brooklyn Bridge, Brooklyn Bridge, New York, NY 10038, USA",
+        "location": {
+            "lat": 40.7060855,
+            "lng": -73.9968643
+        }
+    },
+    {
+        "place_id": "ChIJaXQRs6lZwokRY6EFpJnhNNE",
+        "name": "Empire State Building",
+        "address": "350 5th Ave, New York, NY 10118, USA",
+        "location": {
+            "lat": 40.7484405,
+            "lng": -73.98566439999999
+        }
+    },
+    {
+        "place_id": "ChIJ4zGFAZpYwokRGUGph3Mf37k",
+        "name": "Central Park",
+        "address": "Central Park, New York, NY, USA",
+        "location": {
+            "lat": 40.7828647,
+            "lng": -73.9653551
+        }
+    },
+    {
+        "place_id": "ChIJL5ip6DpawokRsW2csgwvn-g",
+        "name": "Brooklyn Bridge",
+        "address": "Brooklyn Bridge, New York, NY 10038, USA",
+        "location": {
+            "lat": 40.7059955,
+            "lng": -73.99668459999999
+        }
+    },
+    {
+        "place_id": "ChIJsw7Cx_5YwokR4ixP0Qm5_yw",
+        "name": "Rockefeller Plaza",
+        "address": "Rockefeller Plaza, New York, NY, USA",
+        "location": {
+            "lat": 40.75892839999999,
+            "lng": -73.9785586
+        }
+    },
+    {
+        "place_id": "ChIJ-SCJRBJawokRTgycrj04feY",
+        "name": "Battery Park",
+        "address": "Battery Park Underpass, New York, NY 10004, USA",
+        "location": {
+            "lat": 40.70390099999999,
+            "lng": -74.0165531
+        }
+    },
+    {
+        "place_id": "ChIJE04wjCBawokRajCs3EYDnjM",
+        "name": "Broadway",
+        "address": "366 Broadway, New York, NY 10003, USA",
+        "location": {
+            "lat": 40.7174724,
+            "lng": -74.0033299
+        }
+    },
+    {
+        "place_id": "ChIJhRwB-yFawokR5Phil-QQ3zM",
+        "name": "Madison Square Garden",
+        "address": "4 Pennsylvania Plaza, New York, NY 10001, USA",
+        "location": {
+            "lat": 40.7505045,
+            "lng": -73.9934387
+        }
+    }
+]
