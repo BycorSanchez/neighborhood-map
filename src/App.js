@@ -35,6 +35,8 @@ class App extends Component {
       center: { lat: 40.7413549, lng: -73.99802439999996 },
       zoom: 13
     });
+    map.addListener("click", this.closeInfoWindows);
+
     const markers = locations.map(location => this.locationToMarker(map, location));
     this.centerMap(map, markers);
 
@@ -42,13 +44,21 @@ class App extends Component {
   };
 
   locationToMarker = (map, location) => {
-    return new window.google.maps.Marker({
+    let marker = new window.google.maps.Marker({
       position: location.location,
       map: map,
       title: location.name,
       id: location.place_id,
-      address: location.address
-    })
+      address: location.address,
+      infowindow: this.infoWindow(location)
+    });
+
+    marker.addListener("click", () => {
+      this.closeInfoWindows();
+      marker.infowindow.open(map, marker);
+    });
+
+    return marker;
   };
 
   centerMap = (map, markers) => {
@@ -59,11 +69,22 @@ class App extends Component {
     }
   };
 
+  infoWindow = location => {
+    return new window.google.maps.InfoWindow({
+      content: `<div class="info-window">
+        <h3>${location.name}</h3>
+        <p>${location.address}</p>
+      </div>`
+    });
+  };
+
+  closeInfoWindows = () => this.state.markers.forEach(m => m.infowindow.close());
+
   onFilter = query => {
     const { markers } = this.state;
     const match = new RegExp(escapeRegExp(query), 'i');
     markers.filter(marker =>
-      match.test(marker.title)? (marker.setVisible(true)): (marker.setVisible(false))
+      match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false))
     );
     this.setState({ markers });
   }
