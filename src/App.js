@@ -20,6 +20,7 @@ class App extends Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
+  // Load google maps using own key
   loadMap() {
     const script = document.createElement("script");
     script.async = true;
@@ -30,19 +31,26 @@ class App extends Component {
     document.head.appendChild(script);
   };
 
+  //Initialize map
   initMap = () => {
+    //Set default location & zoom (New York)
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 40.7413549, lng: -73.99802439999996 },
       zoom: 13
     });
+
+    //On map click, hide all opened info window
     map.addListener("click", this.closeInfoWindows);
 
+    //Create map markers from provided locations
     const markers = locations.map(location => this.locationToMarker(map, location));
+    //Center map around markers
     this.centerMap(map, markers);
 
     this.setState({ map, markers });
   };
 
+  //Transform location info to map marker
   locationToMarker = (map, location) => {
     let marker = new window.google.maps.Marker({
       position: location.location,
@@ -53,6 +61,7 @@ class App extends Component {
       infowindow: this.infoWindow(location)
     });
 
+    //Display info window on click
     marker.addListener("click", () => {
       this.closeInfoWindows();
       marker.infowindow.open(map, marker);
@@ -61,14 +70,16 @@ class App extends Component {
     return marker;
   };
 
+  //Calculate map boundaries around visible markers
   centerMap = (map, markers) => {
     if (markers && markers.length > 0) {
       let bounds = new window.google.maps.LatLngBounds();
-      markers.forEach(marker => bounds.extend(marker.position));
+      markers.filter(m => m.visible).forEach(marker => bounds.extend(marker.position));
       map.fitBounds(bounds);
     }
   };
 
+  //Create info window from location
   infoWindow = location => {
     return new window.google.maps.InfoWindow({
       content: `<div class="info-window">
@@ -78,20 +89,29 @@ class App extends Component {
     });
   };
 
+  //Close all info windows
   closeInfoWindows = () => this.state.markers.forEach(m => m.infowindow.close());
 
+  //Filter markers according to user query
   onFilter = query => {
-    const { markers } = this.state;
+    const { map, markers } = this.state;
+    
+    //Escape characters & ignore case
     const match = new RegExp(escapeRegExp(query), 'i');
+
+    //Set only matching markers to visible
     markers.filter(marker =>
       match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false))
     );
+
+    this.centerMap(map, markers);
     this.setState({ markers });
   }
 
   render() {
     const { markers, mobileOpen } = this.state;
 
+    //Display Header & Sidebar
     return (
       <div className="App">
         <Header onMenuClick={this.toggleSidebar} />

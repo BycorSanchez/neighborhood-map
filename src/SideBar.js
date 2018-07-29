@@ -12,8 +12,10 @@ import SearchIcon from "@material-ui/icons/Search";
 const SideBar = props => {
     const { markers, mobileOpen, onSidebarClose, onFilter } = props;
 
+    //Sidebar code
     const sidebar = (
         <div className="sidebar">
+            {/* Filter field */}
             <TextField
                 placeholder="Filter by name"
                 className="filter-input"
@@ -27,6 +29,7 @@ const SideBar = props => {
                 fullWidth={true}
                 onChange={event => onFilter(event.target.value)}
             />
+            {/* List of visible markers */}
             <List>
                 {markers &&
                     markers.filter(marker => marker.visible)
@@ -47,6 +50,11 @@ const SideBar = props => {
         </div>
     );
 
+    // There are two sidebars: 
+    //    - Temporary sidebar, displayed on small screen devices showing & hidding when menu button is clicked
+    //    - Permanent sidebar, displayed on large screens. Always visible.
+    //
+    // CSS controls which one of them is displayed
     return (
         <div className="flex-grow">
             <Drawer
@@ -56,7 +64,7 @@ const SideBar = props => {
                 onClose={onSidebarClose}
                 className="drawer-mobile"
                 ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
+                    keepMounted: true, // Material UI parameter, enhances open performance on mobile
                 }}
             >
                 {sidebar}
