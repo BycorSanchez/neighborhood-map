@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
-import "./App.css";
+import escapeRegExp from 'escape-string-regexp';
 import * as locations from "./data/locations.json";
+import "./App.css";
 
 class App extends Component {
   state = {
-    map: '',
+    map: "",
     markers: [],
-    mobileOpen: false
+    mobileOpen: false,
   };
 
   componentDidMount() {
@@ -51,12 +52,21 @@ class App extends Component {
   };
 
   centerMap = (map, markers) => {
-    if (markers && markers.length > 0){
+    if (markers && markers.length > 0) {
       let bounds = new window.google.maps.LatLngBounds();
       markers.forEach(marker => bounds.extend(marker.position));
       map.fitBounds(bounds);
     }
   };
+
+  onFilter = query => {
+    const { markers } = this.state;
+    const match = new RegExp(escapeRegExp(query), 'i');
+    markers.filter(marker =>
+      match.test(marker.title)? (marker.setVisible(true)): (marker.setVisible(false))
+    );
+    this.setState({ query, markers });
+  }
 
   render() {
     const { markers, mobileOpen } = this.state;
@@ -68,6 +78,7 @@ class App extends Component {
           markers={markers}
           mobileOpen={mobileOpen}
           onSidebarClose={this.toggleSidebar}
+          onFilter={this.onFilter}
         />
         <div id="map" />
       </div>

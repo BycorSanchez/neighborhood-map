@@ -10,13 +10,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchIcon from "@material-ui/icons/Search";
 
 const SideBar = props => {
-    const { markers, mobileOpen, onSidebarClose } = props;
+    const { markers, mobileOpen, onSidebarClose, onFilter } = props;
 
     const sidebar = (
         <div className="sidebar">
             <TextField
-                placeholder="Filter"
-                className="search-input"
+                placeholder="Filter by name"
+                className="filter-input"
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -25,21 +25,23 @@ const SideBar = props => {
                     ),
                 }}
                 fullWidth={true}
+                onChange={event => onFilter(event.target.value)}
             />
             <List>
-                {   markers &&
-                    markers.map(marker => (
-                        <ListItem
-                            button
-                            key={marker.id}
-                            className="list-item"
-                        >
-                            <ListItemText
-                                primary={marker.title}
-                                secondary={marker.address}
-                            />
-                        </ListItem>
-                    ))
+                {markers &&
+                    markers.filter(marker => marker.visible)
+                        .map(marker => (
+                            <ListItem
+                                button
+                                key={marker.id}
+                                className="list-item"
+                            >
+                                <ListItemText
+                                    primary={marker.title}
+                                    secondary={marker.address}
+                                />
+                            </ListItem>
+                        ))
                 }
             </List>
         </div>
@@ -74,7 +76,8 @@ const SideBar = props => {
 SideBar.propTypes = {
     markers: PropTypes.array.isRequired,
     mobileOpen: PropTypes.bool.isRequired,
-    onSidebarClose: PropTypes.func.isRequired
+    onSidebarClose: PropTypes.func.isRequired,
+    onFilter: PropTypes.func.isRequired
 }
 
 export default SideBar;
