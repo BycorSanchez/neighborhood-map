@@ -6,6 +6,8 @@ import * as locations from "./data/locations.json";
 import * as mapStyles from "./data/mapstyles.json";
 import "./App.css";
 
+const MAX_ZOOM_LEVEL = 17;
+
 class App extends Component {
   state = {
     map: "",
@@ -17,6 +19,7 @@ class App extends Component {
     this.loadMap();
   }
 
+  //Show / Hide mobile sidebar
   toggleSidebar = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
@@ -44,8 +47,14 @@ class App extends Component {
     //On map click, hide all opened info window
     map.addListener("click", this.closeInfoWindows);
 
+    //Limit how close you the user can get
+    map.addListener('zoom_changed', () => {
+      if (map.getZoom() > MAX_ZOOM_LEVEL) map.setZoom(MAX_ZOOM_LEVEL);
+    });
+
     //Create map markers from provided locations
     const markers = locations.map(location => this.locationToMarker(map, location));
+
     //Center map around markers
     this.centerMap(map, markers);
 
@@ -97,7 +106,7 @@ class App extends Component {
   //Filter markers according to user query
   onFilter = query => {
     const { map, markers } = this.state;
-    
+
     //Escape characters & ignore case
     const match = new RegExp(escapeRegExp(query), 'i');
 
