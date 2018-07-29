@@ -1,15 +1,38 @@
-import React from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import React from "react";
+import Drawer from "@material-ui/core/Drawer";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+
+import SearchIcon from "@material-ui/icons/Search";
 
 const SideBar = props => {
     const { mobileOpen, onSidebarClose } = props;
 
     const sidebar = (
         <div className="sidebar">
-            <Divider />
-            <List>{"Places"}</List>
+            <TextField
+                placeholder="Filter"
+                className="search-input"
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <SearchIcon />
+                        </InputAdornment>
+                    ),
+                }}
+                fullWidth={true}
+            />
+            <List>
+                <ListItem button className="list-item">
+                    <ListItemText primary="Statue of Liberty National Monument" secondary="New York, NY 10004"/>
+                </ListItem>
+                <ListItem button className="list-item">
+                    <ListItemText primary="American Museum of Natural History" secondary="Central Park West & 79th St, New York, NY 10024"/>
+                </ListItem>
+            </List>
         </div>
     );
 

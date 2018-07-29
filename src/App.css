@@ -13,7 +13,7 @@ body {
 
 :root{
   --header-height: 64px;
-  --sidebar-width: 240px;
+  --sidebar-width: 295px;
 }
 
 /* Header */
@@ -48,6 +48,16 @@ body {
 
 .sidebar{
   width: var(--sidebar-width);
+  padding: 12px;
+}
+
+.sidebar .search-input{
+  padding: 0 15px;
+}
+
+.sidebar .list-item{
+  padding: 3px 8px;
+  margin: 5px 0;
 }
 
 /* Map */
