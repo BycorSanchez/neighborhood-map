@@ -3,7 +3,7 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import escapeRegExp from 'escape-string-regexp';
 import * as locations from "./data/locations.json";
-import * as mapStyles from "./data/mapstyle.json";
+import * as mapStyles from "./data/mapstyles.json";
 import "./App.css";
 
 class App extends Component {
