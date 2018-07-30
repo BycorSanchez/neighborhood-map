@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchIcon from "@material-ui/icons/Search";
 
 const SideBar = props => {
-    const { markers, mobileOpen, onSidebarClose, onFilter } = props;
+    const { markers, currentMarker, mobileOpen, onSidebarClose, onFilter, onMarkerSelect } = props;
 
     //Sidebar code
     const sidebar = (
@@ -37,7 +37,8 @@ const SideBar = props => {
                             <ListItem
                                 button
                                 key={marker.id}
-                                className="list-item"
+                                className={(currentMarker && marker.id === currentMarker.id) ? "list-item list-item-selected" : "list-item"}
+                                onClick={() => onMarkerSelect(marker)}
                             >
                                 <ListItemText
                                     primary={marker.title}
@@ -85,7 +86,9 @@ SideBar.propTypes = {
     markers: PropTypes.array.isRequired,
     mobileOpen: PropTypes.bool.isRequired,
     onSidebarClose: PropTypes.func.isRequired,
-    onFilter: PropTypes.func.isRequired
+    onFilter: PropTypes.func.isRequired,
+    onMarkerSelect: PropTypes.func.isRequired,
+    currentMarker: PropTypes.object
 }
 
 export default SideBar;

@@ -81,7 +81,7 @@ class App extends Component {
     });
 
     //Display info window on click
-    marker.addListener("click", () => this.markSelected(map, marker));
+    marker.addListener("click", () => this.markSelected(marker));
 
     return marker;
   };
@@ -115,6 +115,7 @@ class App extends Component {
           url: App.defaultMarkIcon
       });
       currentMarker.infowindow.close();
+      this.setState({ currentMarker: undefined });
     }
   };
 
@@ -135,7 +136,9 @@ class App extends Component {
   };
 
   //When a marker is selected
-  markSelected = (map, marker) => {
+  markSelected = marker => {
+    const { map } = this.state;
+
     //Close previous marker
     this.closeCurrentMarker();
 
@@ -149,7 +152,7 @@ class App extends Component {
   }
 
   render() {
-    const { markers, mobileOpen } = this.state;
+    const { markers, currentMarker, mobileOpen } = this.state;
 
     //Display Header & Sidebar
     return (
@@ -158,8 +161,10 @@ class App extends Component {
         <SideBar
           markers={markers}
           mobileOpen={mobileOpen}
+          currentMarker={currentMarker}
           onSidebarClose={this.toggleSidebar}
           onFilter={this.onFilter}
+          onMarkerSelect={this.markSelected}
         />
         <div id="map" />
       </div>

@@ -60,6 +60,10 @@ body {
   margin: 5px 0;
 }
 
+.sidebar .list-item-selected{
+  background-color: #ffd6d2;
+}
+
 /* Map */
 #map{
   width: 100%;
