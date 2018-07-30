@@ -1,12 +1,12 @@
+import "../css/App.css";
+import * as MapsAPI from "../utils/MapsAPI";
+import * as locations from "../data/locations.json";
 import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
-import * as locations from "./data/locations.json";
-import * as MapsAPI from "./MapsAPI";
 
-import "./App.css";
 
 const MAX_ZOOM_LEVEL = 17;
 

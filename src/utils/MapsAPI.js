@@ -1,4 +1,4 @@
-import * as mapStyles from "./data/mapstyles.json";
+import * as mapStyles from "../data/mapstyles.json";
 
 export const defaultIcon = () => ({
   	scaledSize: new window.google.maps.Size(34, 34),
