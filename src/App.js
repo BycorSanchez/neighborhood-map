@@ -83,9 +83,12 @@ class App extends Component {
 
   //Calculate map boundaries around visible markers
   centerMap = (map, markers) => {
-    if (markers && markers.length > 0) {
+  	if (!markers) return;
+
+  	const visibleMarkers = markers.filter(marker => marker.visible);
+    if (visibleMarkers.length > 0) {
       let bounds = new window.google.maps.LatLngBounds();
-      markers.filter(m => m.visible).forEach(marker => bounds.extend(marker.position));
+ 	  visibleMarkers.forEach(marker => bounds.extend(marker.position));
       map.fitBounds(bounds);
     }
   };
