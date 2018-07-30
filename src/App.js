@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import escapeRegExp from 'escape-string-regexp';
+import sortBy from "sort-by";
 import * as locations from "./data/locations.json";
 import * as mapStyles from "./data/mapstyles.json";
 import "./App.css";
@@ -57,7 +58,9 @@ class App extends Component {
     });
 
     //Create map markers from provided locations
-    const markers = locations.map(location => this.locationToMarker(map, location));
+    const markers = locations
+       .sort(sortBy("name"))
+       .map(location => this.locationToMarker(map, location));
 
     //Center map around markers
     this.centerMap(map, markers);
