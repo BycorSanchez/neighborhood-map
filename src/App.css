@@ -61,7 +61,7 @@ body {
 }
 
 .sidebar .list-item-selected{
-  background-color: #ffd6d2;
+  background-color: #ffd6d2 !important;
 }
 
 /* Map */
