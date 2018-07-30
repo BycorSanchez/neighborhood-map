@@ -22,7 +22,6 @@ class App extends Component {
     this.loadMap();
   };
   
-
   //Show / Hide mobile sidebar
   toggleSidebar = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
@@ -33,7 +32,7 @@ class App extends Component {
     const script = document.createElement("script");
     script.async = true;
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBo3lCapdQsXacp3sci5KKyz2rbCJh3AR0&callback=initMap";
-    script.onerror = error => console.error("Failed to load Map", error);
+    script.onerror = this.mapLoadError;
 
     window.initMap = this.initMap;
     document.head.appendChild(script);
@@ -101,10 +100,8 @@ class App extends Component {
   onFilter = query => {
     const { map, markers } = this.state;
 
-    //Escape characters & ignore case
+    //Only show markers that match the query
     const match = new RegExp(escapeRegExp(query), 'i');
-
-    //Set only matching markers to visible
     markers.filter(marker => match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false)));
 
     this.centerMap(map, markers);
