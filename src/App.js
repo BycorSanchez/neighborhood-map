@@ -119,7 +119,7 @@ class App extends Component {
     marker.infowindow.open(map, marker);
   	marker.setIcon(MapsAPI.highlightedIcon());
 
-  	this.setState({ currentMarker: marker });
+  	this.setState({ currentMarker: marker, mobileOpen: false });
   }
 
   render() {
