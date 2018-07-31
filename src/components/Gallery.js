@@ -25,11 +25,11 @@ class Gallery extends Component {
 		const { status, handleClose, data } = this.props;
 
 		return (
-			<Dialog open={this.showGallery()} onClose={handleClose} aria-labelledby="simple-dialog-title">
-				<DialogTitle id="simple-dialog-title">Photo gallery</DialogTitle>
+			<Dialog open={this.showGallery()} onClose={handleClose} aria-labelledby="dialog-title">
+				<DialogTitle id="dialog-title">Photo gallery</DialogTitle>
 				{status === "loading" &&
 					(
-						<DialogContent className="gallery-loading">
+						<DialogContent className="center-text">
 							<CircularProgress size={50} />
 						</DialogContent>
 					)
@@ -38,7 +38,7 @@ class Gallery extends Component {
 					(
 						<DialogContent>
 							<GridList cellHeight={160} cols={2}>
-								{	data &&
+								{data &&
 									data.map((photo, index) =>
 										(
 											<GridListTile key={index}>
@@ -51,6 +51,16 @@ class Gallery extends Component {
 							</GridList>
 							<DialogContentText>
 								Images provided by <a href="https://www.flickr.com/">Flickr</a>
+							</DialogContentText>
+						</DialogContent>
+					)
+				}
+				{
+					(!data || status === "error") &&
+					(
+						<DialogContent>
+							<DialogContentText className="center-text">
+								Sorry, there are no photos available right now of this place.
 							</DialogContentText>
 						</DialogContent>
 					)

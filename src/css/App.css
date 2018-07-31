@@ -16,6 +16,10 @@ body {
   --sidebar-width: 295px;
 }
 
+.center-text{
+  text-align: center;
+}
+
 /* Header */
 
 .header{
@@ -65,15 +69,10 @@ body {
 }
 
 /* Map */
+
 #map{
   width: 100%;
   height: calc(100% - var(--header-height));
-}
-
-/* Gallery */
-
-.gallery-loading{
-  text-align: center;
 }
 
 @media screen and (min-width: 960px){

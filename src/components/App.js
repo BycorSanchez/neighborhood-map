@@ -133,7 +133,7 @@ class App extends Component {
   closeGallery = () => this.setState({ galleryStatus: "hidden" });
 
 
-
+  //Load photos from Flickr & use them in gallery component
   loadPhotos() {
     const { currentMarker } = this.state;
     if (!currentMarker) return;
