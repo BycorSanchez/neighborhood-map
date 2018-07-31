@@ -72,12 +72,28 @@ class App extends Component {
     let marker = MapsAPI.createMarker(location);
 
     //Add market to map
+    marker.infowindow = this.infoWindow(location);
     marker.setMap(map);
 
     //Display info window on click
     marker.addListener("click", () => this.markSelected(marker));
 
     return marker;
+  };
+
+  //Create info window view
+  infoWindow = location => {
+    let infoWindow = MapsAPI.createInfoWindow(`<div class="info-window">
+        <h3>${location.name}</h3>
+        <p>${location.address}</p>
+        <button class="show-gallery-button">Show gallery</button>
+      </div>`);
+
+    // Load gallery when 'Show gallery' button is clicked
+    // Note: 'onClick' has scope problems when passed directly into infoWindow content. Instead, I added it a posteriori.
+    infoWindow.addListener("domready", () => document.querySelector(".show-gallery-button").addEventListener("click", this.loadGallery));
+
+    return infoWindow;
   };
 
   //Calculate map boundaries around visible markers
@@ -122,10 +138,9 @@ class App extends Component {
     marker.setIcon(MapsAPI.highlightedIcon());
 
     this.setState({ currentMarker: marker, mobileOpen: false });
-    this.loadGallery();
-  }
+  };
 
-  loadGallery() {
+  loadGallery = () => {
     this.setState({ galleryStatus: "loading" });
     this.loadPhotos();
   };
@@ -154,7 +169,7 @@ class App extends Component {
           }));
 
           //Update gallery state to show images & their info
-          this.setState({ galleryStatus: "loaded", galleryData: galleryData });
+          this.setState({ galleryStatus: "loaded", galleryData });
         });
       })
       .catch(error => {
