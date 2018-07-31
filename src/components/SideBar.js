@@ -11,7 +11,6 @@ import SearchIcon from "@material-ui/icons/Search";
 const SideBar = props => {
     const { markers, currentMarker, mobileOpen, onSidebarClose, onFilter, onMarkerSelect } = props;
 
-    //Sidebar code
     const sidebar = (
         <div className="sidebar">
             {/* Filter field */}
@@ -51,7 +50,7 @@ const SideBar = props => {
     );
 
     // There are two sidebars: 
-    //    - Temporary sidebar, displayed on small screen devices showing & hidding when menu button is clicked
+    //    - Temporary sidebar, displayed on small screen devices showing & hidden when menu button is clicked
     //    - Permanent sidebar, displayed on large screens. Always visible.
     //
     // CSS controls which one of them is displayed
@@ -69,7 +68,6 @@ const SideBar = props => {
             >
                 {sidebar}
             </Drawer>
-
             <Drawer
                 variant="permanent"
                 open

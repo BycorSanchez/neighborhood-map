@@ -13,6 +13,7 @@ const Header = props => {
     return (
         <AppBar position="static" className="flex-grow header">
             <Toolbar>
+                {/*Menu icon*/}
                 <IconButton
                     onClick={onMenuClick}
                     className="menu-button"
@@ -21,9 +22,11 @@ const Header = props => {
                 >
                     <MenuIcon />
                 </IconButton>
+                {/* Title */}
                 <Typography variant="title" color="inherit" className="flex-grow">
                     Neighborhood map
                     </Typography>
+                {/* Profile link */}
                 <Tooltip title="Github" placement="bottom">
                     <IconButton color="inherit" href="https://github.com/BycorSanchez">
                         <SvgIcon>

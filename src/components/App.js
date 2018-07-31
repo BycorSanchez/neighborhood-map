@@ -1,5 +1,6 @@
 import "../css/App.css";
 import * as MapsAPI from "../utils/MapsAPI";
+import * as FlickrAPI from "../utils/FlickrAPI";
 import * as locations from "../data/locations.json";
 import React, { Component } from "react";
 import Header from "./Header";
@@ -7,7 +8,6 @@ import SideBar from "./SideBar";
 import Gallery from "./Gallery";
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
-
 
 const MAX_ZOOM_LEVEL = 17;
 
@@ -17,7 +17,8 @@ class App extends Component {
     markers: [],
     mobileOpen: false,
     currentMarker: undefined,
-    galleryOpen: false
+    galleryStatus: "hidden",
+    galleryData: []
   };
 
   componentDidMount() {
@@ -29,12 +30,12 @@ class App extends Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  // Load google maps using own key
+  // Load Google Maps
   loadMap() {
     const script = document.createElement("script");
     script.async = true;
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBo3lCapdQsXacp3sci5KKyz2rbCJh3AR0&callback=initMap";
-    script.onerror = this.mapLoadError;
+    script.onerror = error => console.error("Failed to load Map", error);
 
     window.initMap = this.initMap;
     document.head.appendChild(script);
@@ -45,7 +46,7 @@ class App extends Component {
     //Set default location & zoom (New York)
     const map = MapsAPI.createMap(document.getElementById('map'), { lat: 40.7413549, lng: -73.99802439999996 });
 
-    //On map click, hide all opened info window
+    //On click, hide opened info windows
     map.addListener("click", this.closeCurrentMarker);
 
     //Limit how close you the user can get
@@ -53,24 +54,23 @@ class App extends Component {
       if (map.getZoom() > MAX_ZOOM_LEVEL) map.setZoom(MAX_ZOOM_LEVEL);
     });
 
-    //Create map markers from provided locations
+    //Create location map markers
     const markers = locations
       .sort(sortBy("name"))
       .map(location => this.locationToMarker(map, location));
 
-    //Center map around markers
+    //Center map
     this.centerMap(map, markers);
 
     this.setState({ map, markers });
   };
 
-  mapLoadError = error => console.error("Failed to load Map", error);
 
-  //Transform location info to map marker
+  //Transform location to map marker
   locationToMarker = (map, location) => {
     let marker = MapsAPI.createMarker(location);
 
-    //Add it to map
+    //Add market to map
     marker.setMap(map);
 
     //Display info window on click
@@ -98,11 +98,10 @@ class App extends Component {
     }
   };
 
-  //Filter markers according to user query
+  //Show markers that match user query
   onFilter = query => {
     const { map, markers } = this.state;
 
-    //Only show markers that match the query
     const match = new RegExp(escapeRegExp(query), 'i');
     markers.filter(marker => match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false)));
 
@@ -117,19 +116,46 @@ class App extends Component {
     //Close previous marker
     this.closeCurrentMarker();
 
-    //Open new info window & use highlight icon
+    //Open info window & highlight icon
     marker.infowindow.open(map, marker);
     marker.setIcon(MapsAPI.highlightedIcon());
 
-    this.setState({ currentMarker: marker, mobileOpen: false, galleryOpen: true });
+    this.setState({ currentMarker: marker, mobileOpen: false });
+    this.loadGallery();
   }
 
-  onGalleryClose = () => this.setState({ galleryOpen: false });
+  loadGallery() {
+    this.setState({ galleryStatus: "loading" });
+    this.loadPhotos();
+  };
+
+  //Close photo gallery
+  closeGallery = () => this.setState({ galleryStatus: "hidden" });
+
+
+
+  loadPhotos() {
+    const { currentMarker } = this.state;
+    if (!currentMarker) return;
+
+    FlickrAPI.searchPhotos(currentMarker.title)
+      .then(data => {
+        const photos = data.map(photo => FlickrAPI.photoURL(photo, "m"));
+        this.setState({ galleryStatus: "loaded", galleryData: photos });
+      })
+      .catch(error => {
+        console.log("Images search failed", error);
+        this.setState({ galleryStatus: "error" });
+      });
+  };
+
+
+
 
   render() {
-    const { markers, currentMarker, mobileOpen, galleryOpen } = this.state;
+    const { markers, currentMarker, mobileOpen, galleryStatus, galleryData } = this.state;
 
-    //Display Header & Sidebar
+    //Display Header, Sidebar, Map & Gallery (when necessary)
     return (
       <div className="App">
         <Header onMenuClick={this.toggleSidebar} />
@@ -142,12 +168,7 @@ class App extends Component {
           onMarkerSelect={this.markSelected}
         />
         <div id="map" />
-        {galleryOpen &&
-          (
-            <Gallery marker={currentMarker} galleryOpen={galleryOpen} handleClose={this.onGalleryClose} />
-          )
-        }
-
+        <Gallery status={galleryStatus} handleClose={this.closeGallery} data={galleryData} />
       </div>
     );
   }
