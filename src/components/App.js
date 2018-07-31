@@ -121,7 +121,7 @@ class App extends Component {
     marker.infowindow.open(map, marker);
   	marker.setIcon(MapsAPI.highlightedIcon());
 
-  	this.setState({ currentMarker: marker, mobileOpen: false });
+  	this.setState({ currentMarker: marker, mobileOpen: false, galleryOpen: true });
   }
 
   onGalleryClose = () => this.setState({galleryOpen: false});
@@ -144,7 +144,7 @@ class App extends Component {
         <div id="map" />
         { galleryOpen &&
           (
-            <Gallery galleryOpen={galleryOpen} handleClose={this.onGalleryClose}/>
+            <Gallery marker={currentMarker} galleryOpen={galleryOpen} handleClose={this.onGalleryClose}/>
           )
         }
         
