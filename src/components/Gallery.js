@@ -31,7 +31,7 @@ class Gallery extends Component {
 
 		FlickrAPI.searchPhotos(marker.title)
 			.then(data => {
-				const photos = data.map(photo => photoURL(photo, "m"));
+				const photos = data.map(photo => FlickrAPI.photoURL(photo, "m"));
 				this.setState({ photos, status: "loaded" });
 			})
 			.catch(error => {
