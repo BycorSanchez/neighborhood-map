@@ -131,7 +131,7 @@ class App extends Component {
   };
 
   //Close photo gallery
-  closeGallery = () => this.setState({ galleryStatus: "hidden", galleryData:[] });
+  closeGallery = () => this.setState({ galleryStatus: "hidden", galleryData: [] });
 
 
   //Load photos from Flickr & use them in gallery component
@@ -141,16 +141,16 @@ class App extends Component {
 
     //Obtain photos from query
     FlickrAPI.searchPhotos(currentMarker.title)
-      .then(data => {
+      .then(photoDataList => {
 
-        const promises = data.map(d => FlickrAPI.photoInfo(d));
+        const promises = photoDataList.map(d => FlickrAPI.photoInfo(d));
 
         //Obtain information of each photo (author, title, etc)
-        Promise.all(promises).then(infoList =>{
-          const galleryData = infoList.map((info, i) => ({ 
-            url: FlickrAPI.photoURL(data[i], "m"),
-            title: info.title._content,
-            author: info.owner.username
+        Promise.all(promises).then(infoList => {
+          const galleryData = infoList.map((info, i) => ({
+            url: FlickrAPI.photoURL(photoDataList[i], "m"),  //Translate photo data into a URL
+            title: (info && info.title) ? info.title._content : "", //Get photo title if declared
+            author: (info && info.owner) ? info.owner.username : "" //Get photo author if declared
           }));
 
           //Update gallery state to show images & their info
@@ -180,7 +180,11 @@ class App extends Component {
           onMarkerSelect={this.markSelected}
         />
         <div id="map" />
-        <Gallery status={galleryStatus} handleClose={this.closeGallery} photos={galleryData} />
+        <Gallery
+          status={galleryStatus}
+          handleClose={this.closeGallery}
+          photos={galleryData}
+        />
       </div>
     );
   }
