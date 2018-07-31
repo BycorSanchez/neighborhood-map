@@ -4,6 +4,7 @@ import * as locations from "../data/locations.json";
 import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
+import Gallery from "./Gallery";
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
 
@@ -15,7 +16,8 @@ class App extends Component {
     map: "",
     markers: [],
     mobileOpen: false,
-    currentMarker: undefined
+    currentMarker: undefined,
+    galleryOpen: false
   };
 
   componentDidMount() {
@@ -122,8 +124,10 @@ class App extends Component {
   	this.setState({ currentMarker: marker, mobileOpen: false });
   }
 
+  onGalleryClose = () => this.setState({galleryOpen: false});
+
   render() {
-    const { markers, currentMarker, mobileOpen } = this.state;
+    const { markers, currentMarker, mobileOpen, galleryOpen } = this.state;
 
     //Display Header & Sidebar
     return (
@@ -138,6 +142,12 @@ class App extends Component {
           onMarkerSelect={this.markSelected}
         />
         <div id="map" />
+        { galleryOpen &&
+          (
+            <Gallery galleryOpen={galleryOpen} handleClose={this.onGalleryClose}/>
+          )
+        }
+        
       </div>
     );
   }
