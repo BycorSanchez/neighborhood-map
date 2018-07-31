@@ -10,6 +10,7 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
 
 const MAX_ZOOM_LEVEL = 17;
+const DEFAULT_LOCATION = { lat: 40.7413549, lng: -73.99802439999996 };
 
 class App extends Component {
   state = {
@@ -43,10 +44,10 @@ class App extends Component {
 
   //Initialize map
   initMap = () => {
-    //Set default location & zoom (New York)
-    const map = MapsAPI.createMap(document.getElementById('map'), { lat: 40.7413549, lng: -73.99802439999996 });
+    //Set default location
+    const map = MapsAPI.createMap(document.getElementById('map'), DEFAULT_LOCATION);
 
-    //On click, hide opened info windows
+    //Hide opened info windows
     map.addListener("click", this.closeCurrentMarker);
 
     //Limit how close you the user can get
@@ -130,7 +131,7 @@ class App extends Component {
   };
 
   //Close photo gallery
-  closeGallery = () => this.setState({ galleryStatus: "hidden" });
+  closeGallery = () => this.setState({ galleryStatus: "hidden", galleryData:[] });
 
 
   //Load photos from Flickr & use them in gallery component
@@ -138,18 +139,29 @@ class App extends Component {
     const { currentMarker } = this.state;
     if (!currentMarker) return;
 
+    //Obtain photos from query
     FlickrAPI.searchPhotos(currentMarker.title)
       .then(data => {
-        const photos = data.map(photo => FlickrAPI.photoURL(photo, "m"));
-        this.setState({ galleryStatus: "loaded", galleryData: photos });
+
+        const promises = data.map(d => FlickrAPI.photoInfo(d));
+
+        //Obtain information of each photo (author, title, etc)
+        Promise.all(promises).then(infoList =>{
+          const galleryData = infoList.map((info, i) => ({ 
+            url: FlickrAPI.photoURL(data[i], "m"),
+            title: info.title._content,
+            author: info.owner.username
+          }));
+
+          //Update gallery state to show images & their info
+          this.setState({ galleryStatus: "loaded", galleryData: galleryData });
+        });
       })
       .catch(error => {
         console.log("Images search failed", error);
         this.setState({ galleryStatus: "error" });
       });
   };
-
-
 
 
   render() {
@@ -168,7 +180,7 @@ class App extends Component {
           onMarkerSelect={this.markSelected}
         />
         <div id="map" />
-        <Gallery status={galleryStatus} handleClose={this.closeGallery} data={galleryData} />
+        <Gallery status={galleryStatus} handleClose={this.closeGallery} photos={galleryData} />
       </div>
     );
   }

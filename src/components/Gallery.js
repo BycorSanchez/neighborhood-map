@@ -14,7 +14,7 @@ class Gallery extends Component {
 	static propTypes = {
 		status: PropTypes.oneOf(["hidden", "loading", "loaded", "error"]).isRequired,
 		handleClose: PropTypes.func.isRequired,
-		data: PropTypes.array
+		photos: PropTypes.array
 	};
 
 	showGallery() {
@@ -22,7 +22,7 @@ class Gallery extends Component {
 	};
 
 	render() {
-		const { status, handleClose, data } = this.props;
+		const { status, handleClose, photos } = this.props;
 
 		return (
 			<Dialog open={this.showGallery()} onClose={handleClose} aria-labelledby="dialog-title">
@@ -38,12 +38,13 @@ class Gallery extends Component {
 					(
 						<DialogContent>
 							<GridList cellHeight={160} cols={2}>
-								{data &&
-									data.map((photo, index) =>
+								{	photos &&
+									photos.map((photo, index) =>
 										(
+											//Show image & description
 											<GridListTile key={index}>
-												<img src={photo} alt="" />
-												<GridListTileBar title="Title" subtitle="Subtitle" />
+												<img src={photo.url} alt={photo.title} />
+												<GridListTileBar title={photo.title} subtitle={`by ${photo.author}`} />
 											</GridListTile>
 										)
 									)
@@ -56,7 +57,7 @@ class Gallery extends Component {
 					)
 				}
 				{
-					(!data || status === "error") &&
+					(!photos || status === "error") &&
 					(
 						<DialogContent>
 							<DialogContentText className="center-text">
