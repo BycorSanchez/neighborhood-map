@@ -23,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     this.loadMap();
   };
-  
+
   //Show / Hide mobile sidebar
   toggleSidebar = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
@@ -55,8 +55,8 @@ class App extends Component {
 
     //Create map markers from provided locations
     const markers = locations
-       .sort(sortBy("name"))
-       .map(location => this.locationToMarker(map, location));
+      .sort(sortBy("name"))
+      .map(location => this.locationToMarker(map, location));
 
     //Center map around markers
     this.centerMap(map, markers);
@@ -81,7 +81,7 @@ class App extends Component {
 
   //Calculate map boundaries around visible markers
   centerMap = (map, markers) => {
-  	const visibleMarkers = markers.filter(marker => marker.visible);
+    const visibleMarkers = markers.filter(marker => marker.visible);
     if (visibleMarkers.length > 0) {
       let bounds = MapsAPI.createBounds(visibleMarkers);
       map.fitBounds(bounds);
@@ -91,7 +91,7 @@ class App extends Component {
   //Close current marker info window  & set default icon
   closeCurrentMarker = () => {
     const { currentMarker } = this.state;
-    if (currentMarker){
+    if (currentMarker) {
       currentMarker.setIcon(MapsAPI.defaultIcon());
       currentMarker.infowindow.close();
       this.setState({ currentMarker: undefined });
@@ -119,12 +119,12 @@ class App extends Component {
 
     //Open new info window & use highlight icon
     marker.infowindow.open(map, marker);
-  	marker.setIcon(MapsAPI.highlightedIcon());
+    marker.setIcon(MapsAPI.highlightedIcon());
 
-  	this.setState({ currentMarker: marker, mobileOpen: false, galleryOpen: true });
+    this.setState({ currentMarker: marker, mobileOpen: false, galleryOpen: true });
   }
 
-  onGalleryClose = () => this.setState({galleryOpen: false});
+  onGalleryClose = () => this.setState({ galleryOpen: false });
 
   render() {
     const { markers, currentMarker, mobileOpen, galleryOpen } = this.state;
@@ -142,12 +142,12 @@ class App extends Component {
           onMarkerSelect={this.markSelected}
         />
         <div id="map" />
-        { galleryOpen &&
+        {galleryOpen &&
           (
-            <Gallery marker={currentMarker} galleryOpen={galleryOpen} handleClose={this.onGalleryClose}/>
+            <Gallery marker={currentMarker} galleryOpen={galleryOpen} handleClose={this.onGalleryClose} />
           )
         }
-        
+
       </div>
     );
   }

@@ -13,8 +13,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 class Gallery extends Component {
 
 	static propTypes = {
-	    galleryOpen: PropTypes.bool.isRequired,
-	    handleClose: PropTypes.func.isRequired
+		galleryOpen: PropTypes.bool.isRequired,
+		handleClose: PropTypes.func.isRequired
 	};
 
 	state = {
@@ -31,7 +31,7 @@ class Gallery extends Component {
 
 		FlickrAPI.searchPhotos(marker.title)
 			.then(data => {
-				const photos = FlickrAPI.photoURLs(data, "m");
+				const photos = data.map(photo => photoURL(photo, "m"));
 				this.setState({ photos, status: "loaded" });
 			})
 			.catch(error => {
@@ -41,32 +41,32 @@ class Gallery extends Component {
 	};
 
 
-	render(){
+	render() {
 		const { status, photos } = this.state;
 		const { galleryOpen, handleClose } = this.props;
 
 		return (
-			<Dialog open={ galleryOpen } onClose={ handleClose } aria-labelledby="simple-dialog-title">
+			<Dialog open={galleryOpen} onClose={handleClose} aria-labelledby="simple-dialog-title">
 				<DialogTitle id="simple-dialog-title">Photo gallery</DialogTitle>
-				{	status === "loading" &&
+				{status === "loading" &&
 					(
 						<DialogContent className="gallery-loading">
-							<CircularProgress size={50}/>
+							<CircularProgress size={50} />
 						</DialogContent>
 					)
 				}
-				{	status !== "loading" &&
+				{status !== "loading" &&
 					(
 						<DialogContent>
 							<GridList cellHeight={160} cols={2}>
-								{	photos && 
-									photos.map((photo, index) => 
-							            (
-		                                	<GridListTile key={index}>
-							            		<img src={photo} alt="" />
-							            		<GridListTileBar title="Title" subtitle="Subtitle" />
-							            	</GridListTile>
-							            )
+								{photos &&
+									photos.map((photo, index) =>
+										(
+											<GridListTile key={index}>
+												<img src={photo} alt="" />
+												<GridListTileBar title="Title" subtitle="Subtitle" />
+											</GridListTile>
+										)
 									)
 								}
 							</GridList>
