@@ -70,6 +70,12 @@ body {
   height: calc(100% - var(--header-height));
 }
 
+/* Gallery */
+
+.gallery-loading{
+  text-align: center;
+}
+
 @media screen and (min-width: 960px){
   .header{
     margin-left: var(--sidebar-width);
