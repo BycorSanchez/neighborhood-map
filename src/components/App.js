@@ -179,7 +179,7 @@ class App extends Component {
         //Obtain information of each photo (author, title, etc)
         Promise.all(promises).then(infoList => {
           const galleryData = infoList.map((info, i) => ({
-            url: FlickrAPI.photoURL(photoDataList[i], "m"),  //Translate photo data into a URL
+            url: FlickrAPI.photoURL(photoDataList[i], "n"),  //Translate photo data into a URL
             title: (info && info.title) ? info.title._content : "", //Get photo title if declared
             author: (info && info.owner) ? info.owner.username : "" //Get photo author if declared
           }));
