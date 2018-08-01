@@ -82,8 +82,14 @@ body {
 }
 
 .info-window-header{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: space-around;
+  -ms-flex-pack: space-around;
   justify-content: space-around;
 }
 
