@@ -75,6 +75,23 @@ body {
   height: calc(100% - var(--header-height));
 }
 
+/* Info window */
+
+.info-window-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.info-window-header .show-gallery-button{
+  border-radius: 100%;
+  background-color: #e6e6e6;
+  border: 1px solid #dcdcdc;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 960px){
   .header{
     margin-left: var(--sidebar-width);

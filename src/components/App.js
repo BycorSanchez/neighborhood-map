@@ -2,10 +2,13 @@ import "../css/App.css";
 import * as MapsAPI from "../utils/MapsAPI";
 import * as FlickrAPI from "../utils/FlickrAPI";
 import * as locations from "../data/locations.json";
+import { ImageIcon } from "../utils/Icons";
+
 import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import Gallery from "./Gallery";
+
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
 
@@ -83,11 +86,15 @@ class App extends Component {
 
   //Create info window view
   infoWindow = location => {
-    let infoWindow = MapsAPI.createInfoWindow(`<div class="info-window">
-        <h3>${location.name}</h3>
+    let infoWindow = MapsAPI.createInfoWindow(
+      `<div class="info-window">
+        <div class="info-window-header">
+          <h3>${location.name}</h3>
+          <button title="Show gallery" class="show-gallery-button">${ImageIcon}</button>
+        </div>
         <p>${location.address}</p>
-        <button class="show-gallery-button">Show gallery</button>
-      </div>`);
+      </div>`
+    );
 
     // Load gallery when 'Show gallery' button is clicked
     // Note: 'onClick' has scope problems when passed directly into infoWindow content. Instead, I added it a posteriori.
