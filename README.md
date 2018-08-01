@@ -36,6 +36,10 @@ The following scheme shows how React components are structured:
 * [sort-by](https://github.com/kvnneff/sort-by)
 * [escape-string-regexp](https://github.com/sindresorhus/escape-string-regexp)
 
+### Notes
+
+Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code.
+
 ## Attributions
 
 Marker and Image icons made by [Paomedia](https://www.iconfinder.com/paomedia) https://www.iconfinder.com/iconsets/small-n-flat
