@@ -99,6 +99,7 @@ class App extends Component {
     // Load gallery when 'Show gallery' button is clicked
     // Note: 'onClick' has scope problems when passed directly into infoWindow content. Instead, I added it a posteriori.
     infoWindow.addListener("domready", () => document.querySelector(".show-gallery-button").addEventListener("click", this.loadGallery));
+    infoWindow.addListener("closeclick", this.closeCurrentMarker);
 
     return infoWindow;
   };
