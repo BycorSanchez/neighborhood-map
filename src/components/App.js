@@ -131,7 +131,7 @@ class App extends Component {
     markers.filter(marker => match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false)));
 
     //Hide info window if current marker does not match query
-    if (currentMarker){
+    if (currentMarker) {
       if (currentMarker.visible) currentMarker.infowindow.open(map, currentMarker);
       else currentMarker.infowindow.close();
     }
@@ -187,7 +187,7 @@ class App extends Component {
           //Update gallery state to show images & their info
           this.setState({ galleryStatus: "loaded", galleryData });
         })
-        .catch(error => console.log("Images search failed", error));
+          .catch(error => console.log("Images search failed", error));
       })
       .catch(error => {
         console.log("Images search failed", error);
@@ -211,7 +211,7 @@ class App extends Component {
           onFilter={this.onFilter}
           onMarkerSelect={this.markSelected}
         />
-        <main id="map" role="application"/>
+        <main id="map" role="application" />
         <Gallery
           status={galleryStatus}
           handleClose={this.closeGallery}
