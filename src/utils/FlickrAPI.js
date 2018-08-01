@@ -22,7 +22,7 @@ export const photoURL = ({ id, secret, server, farm }, size) => `https://farm${f
 
 
 //Construct requests dinamycally
-const searchURL = query => `${methodURL("flickr.photos.search")}&text=${query}&per_page=4&sort=relevance`;
+const searchURL = query => `${methodURL("flickr.photos.search")}&text=${query}&per_page=6&sort=relevance`;
 
 const infoURL = ({ id }) => `${methodURL("flickr.photos.getInfo")}&photo_id=${id}`;
 
