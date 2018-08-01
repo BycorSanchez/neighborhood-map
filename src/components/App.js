@@ -125,10 +125,16 @@ class App extends Component {
 
   //Show markers that match user query
   onFilter = query => {
-    const { map, markers } = this.state;
+    const { map, markers, currentMarker } = this.state;
 
     const match = new RegExp(escapeRegExp(query), 'i');
     markers.filter(marker => match.test(marker.title) ? (marker.setVisible(true)) : (marker.setVisible(false)));
+
+    //Hide info window if current marker does not match query
+    if (currentMarker){
+      if (currentMarker.visible) currentMarker.infowindow.open(map, currentMarker);
+      else currentMarker.infowindow.close();
+    }
 
     this.centerMap(map, markers);
     this.setState({ markers });
@@ -144,6 +150,8 @@ class App extends Component {
     //Open info window & highlight icon
     marker.infowindow.open(map, marker);
     marker.setIcon(MapsAPI.highlightedIcon());
+
+    map.panTo(marker.position);
 
     this.setState({ currentMarker: marker, mobileOpen: false });
   };
