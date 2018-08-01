@@ -17,6 +17,7 @@ const SideBar = props => {
             <TextField
                 placeholder="Filter by name"
                 className="filter-input"
+                aria-label="Filter locations by name"
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -35,6 +36,7 @@ const SideBar = props => {
                             <ListItem
                                 button
                                 key={marker.id}
+                                aria-label={marker.title}
                                 className={(currentMarker && marker.id === currentMarker.id) ? "list-item list-item-selected" : "list-item"}
                                 onClick={() => onMarkerSelect(marker)}
                             >

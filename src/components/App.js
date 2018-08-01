@@ -87,10 +87,10 @@ class App extends Component {
   //Create info window view
   infoWindow = location => {
     let infoWindow = MapsAPI.createInfoWindow(
-      `<div class="info-window">
+      `<div class="info-window" tabindex="0" aria-label="${location.name} information">
         <div class="info-window-header">
           <h3>${location.name}</h3>
-          <button title="Show gallery" class="show-gallery-button">${ImageIcon}</button>
+          <button title="Show gallery" class="show-gallery-button" aria-label="Show gallery" tabindex="0">${ImageIcon}</button>
         </div>
         <p>${location.address}</p>
       </div>`
@@ -202,7 +202,7 @@ class App extends Component {
           onFilter={this.onFilter}
           onMarkerSelect={this.markSelected}
         />
-        <div id="map" />
+        <main id="map" role="application"/>
         <Gallery
           status={galleryStatus}
           handleClose={this.closeGallery}
