@@ -10,7 +10,7 @@ There is a search input (sidebar top) where the user can **filter** the list of 
 
 By clicking an item from the list or a marker the application will highlight it to indicate which one was selected. It will also set the center of the map to that location and display a small **info window**. 
 
-The marker's info window contains a button. On click, the application will search and display a **gallery of photos** (modal) related to the current location.
+The marker's info window contains a button. On click, the application displays a **gallery of photos** (modal) related to the current location.
 
 ## React components
 
