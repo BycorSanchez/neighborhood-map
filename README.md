@@ -58,3 +58,6 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 Marker and image icons made by [Paomedia](https://www.iconfinder.com/paomedia). https://www.iconfinder.com/iconsets/small-n-flat
 
 Map style made by bruno perrier. https://snazzymaps.com/style/6666/green-and-blue
+
+----
+![Neighborhood map preview](img/app.gif)
