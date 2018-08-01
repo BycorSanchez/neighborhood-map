@@ -182,12 +182,12 @@ class App extends Component {
             url: FlickrAPI.photoURL(photoDataList[i], "m"),  //Translate photo data into a URL
             title: (info && info.title) ? info.title._content : "", //Get photo title if declared
             author: (info && info.owner) ? info.owner.username : "" //Get photo author if declared
-          }))
-          .catch(error => console.log("Images search failed", error));
+          }));
 
           //Update gallery state to show images & their info
           this.setState({ galleryStatus: "loaded", galleryData });
-        });
+        })
+        .catch(error => console.log("Images search failed", error));
       })
       .catch(error => {
         console.log("Images search failed", error);
