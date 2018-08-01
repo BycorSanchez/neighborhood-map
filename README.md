@@ -16,10 +16,10 @@ The marker's info window contains a button ![Image button](img/icon.png). On cli
 
 This project has four main React.js components:
 
-* Header: shows app header.
-* Sidebar: shows list of locations and filter.
-* Gallery: display location photos.
-* App: contains google maps. It handles map & list interactions and fetch photos using [Flickr API](https://www.flickr.com/services/api/).
+* *Header*: app header.
+* *Sidebar*: list of locations and filter.
+* *Gallery*: display location photos.
+* *App*: contains **Google Map**. It handles map & list interactions and fetch photos using [Flickr API](https://www.flickr.com/services/api/).
 
 The following scheme shows how components are structured:
 
@@ -56,4 +56,5 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 ## Attributions
 
 Marker and image icons made by [Paomedia](https://www.iconfinder.com/paomedia). https://www.iconfinder.com/iconsets/small-n-flat
+
 Map style made by bruno perrier. https://snazzymaps.com/style/6666/green-and-blue
