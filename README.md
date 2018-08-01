@@ -55,6 +55,8 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 
 ## Attributions
 
+The photography data is provided by [Flickr](https://www.flickr.com/) service.
+
 Marker and image icons made by [Paomedia](https://www.iconfinder.com/paomedia). https://www.iconfinder.com/iconsets/small-n-flat
 
 Map style made by bruno perrier. https://snazzymaps.com/style/6666/green-and-blue
