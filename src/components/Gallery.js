@@ -44,7 +44,10 @@ class Gallery extends Component {
 											//Show image & description
 											<GridListTile key={index}>
 												<img src={photo.url} alt={photo.title} />
-												<GridListTileBar title={photo.title} subtitle={`by ${photo.author}`} />
+												{
+													photo.title && photo.author &&
+													(<GridListTileBar title={photo.title} subtitle={`by ${photo.author}`} />)
+												}
 											</GridListTile>
 										)
 									)
