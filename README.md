@@ -32,6 +32,15 @@ The following scheme shows how components are structured:
 
 ## How to run
 
+### Development mode
+
+1. Download [⬇](https://github.com/BycorSanchez/neighborhood-map/archive/master.zip) or clone this repository.
+2. Install dependencies with `npm install`.
+3. Start the server with `npm start`.
+4. Visit `http://localhost:3000`.
+
+### Production mode
+
 1. Download [⬇](https://github.com/BycorSanchez/neighborhood-map/archive/master.zip) or clone this repository.
 2. Install dependencies with `npm install`.
 3. Build and start the server with `npm run serve`.
