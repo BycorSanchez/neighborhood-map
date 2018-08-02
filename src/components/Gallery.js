@@ -12,7 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 class Gallery extends Component {
 
 	static propTypes = {
-		status: PropTypes.oneOf(["hidden", "loading", "loaded", "error"]).isRequired,
+		status: PropTypes.oneOf(["hidden", "loading", "loaded"]).isRequired,
 		handleClose: PropTypes.func.isRequired,
 		photos: PropTypes.array
 	};
@@ -27,18 +27,26 @@ class Gallery extends Component {
 		return (
 			<Dialog open={this.showGallery()} onClose={handleClose} aria-labelledby="dialog-title">
 				<DialogTitle id="dialog-title">Photo gallery</DialogTitle>
-				{status === "loading" &&
+				{	status === "loading" &&
 					(
 						<DialogContent className="center-text">
 							<CircularProgress size={50} />
 						</DialogContent>
 					)
 				}
-				{status === "loaded" &&
+				{	status === "loaded" && 
+					photos &&
 					(
 						<DialogContent>
 							<GridList cellHeight={160} cols={2}>
-								{	photos &&
+								{	photos.length < 1 &&
+									(
+										<DialogContentText>
+											Images provided by <a href="https://www.flickr.com/">Flickr</a>
+										</DialogContentText>
+									)
+								}
+								{	photos.length > 0 &&
 									photos.map((photo, index) =>
 										(
 											//Show image & description
@@ -55,16 +63,6 @@ class Gallery extends Component {
 							</GridList>
 							<DialogContentText>
 								Images provided by <a href="https://www.flickr.com/">Flickr</a>
-							</DialogContentText>
-						</DialogContent>
-					)
-				}
-				{
-					(!photos || status === "error") &&
-					(
-						<DialogContent>
-							<DialogContentText className="center-text">
-								Sorry, there are no photos available right now of this place.
 							</DialogContentText>
 						</DialogContent>
 					)

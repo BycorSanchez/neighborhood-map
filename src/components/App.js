@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import Gallery from "./Gallery";
+import Snackbar from '@material-ui/core/Snackbar';
 
 import escapeRegExp from 'escape-string-regexp';
 import sortBy from "sort-by";
@@ -22,7 +23,8 @@ class App extends Component {
     mobileOpen: false,
     currentMarker: undefined,
     galleryStatus: "hidden",
-    galleryData: []
+    galleryData: [],
+    snackbarMessage: undefined
   };
 
   componentDidMount() {
@@ -39,9 +41,10 @@ class App extends Component {
     const script = document.createElement("script");
     script.async = true;
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBo3lCapdQsXacp3sci5KKyz2rbCJh3AR0&callback=initMap";
-    script.onerror = error => console.error("Failed to load Map", error);
+    script.onerror = this.mapFailure;
 
     window.initMap = this.initMap;
+    window.gm_authFailure = this.mapFailure;
     document.head.appendChild(script);
   };
 
@@ -69,6 +72,7 @@ class App extends Component {
     this.setState({ map, markers });
   };
 
+  mapFailure = () => this.setState({ snackbarMessage: "Oops! Map could not be loaded" });
 
   //Transform location to map marker
   locationToMarker = (map, location) => {
@@ -191,13 +195,14 @@ class App extends Component {
       })
       .catch(error => {
         console.log("Images search failed", error);
-        this.setState({ galleryStatus: "error" });
+        this.setState({ galleryStatus: "hidden", snackbarMessage: "Oops! Photos could not be loaded" });
       });
   };
 
+  clearMessage = () => this.setState({ snackbarMessage: undefined });
 
   render() {
-    const { markers, currentMarker, mobileOpen, galleryStatus, galleryData } = this.state;
+    const { markers, currentMarker, mobileOpen, galleryStatus, galleryData, snackbarMessage } = this.state;
 
     //Display Header, Sidebar, Map & Gallery (when necessary)
     return (
@@ -216,6 +221,21 @@ class App extends Component {
           status={galleryStatus}
           handleClose={this.closeGallery}
           photos={galleryData}
+        />
+        {/* Snack bar to display pop up messages */}
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            autoHideDuration={6500}
+            open={snackbarMessage !== undefined}
+            onClose={(event, reason) => {
+              if (reason !== 'clickaway')
+                this.clearMessage();
+            }}
+            ContentProps={{ 'aria-describedby': 'message-id' }}
+            message={<span id="message-id">{snackbarMessage}</span>}
         />
       </div>
     );
