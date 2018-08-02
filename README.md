@@ -10,7 +10,7 @@ There is a search input (sidebar top) where the user can **filter** the list of 
 
 By clicking an item from the list or a marker the application will highlight it to indicate which one was selected. It will also set the center of the map to that location and display a small **info window**. 
 
-The marker's info window contains a button. On click, the application displays a **gallery of photos** (modal) related to the current location.
+Marker's info window contains a button. On click, the application displays a **gallery of photos** (modal) related to the current location.
 
 ## React components
 
@@ -34,8 +34,8 @@ The following scheme shows how components are structured:
 
 1. Download [⬇](https://github.com/BycorSanchez/neighborhood-map/archive/master.zip) or clone this repository.
 2. Install dependencies with `npm install`.
-3. Start the server with `npm start`.
-4. Visit `http://localhost:3000`.
+3. Build and start the server with `npm run serve`.
+4. Visit `http://localhost:5000`.
 
 ## Technologies used
 
@@ -46,6 +46,7 @@ The following scheme shows how components are structured:
 * [prop-types](https://github.com/facebook/prop-types)
 * [sort-by](https://github.com/kvnneff/sort-by)
 * [escape-string-regexp](https://github.com/sindresorhus/escape-string-regexp)
+* [serve](https://github.com/zeit/serve)
 
 ## Notes
 
