@@ -1,6 +1,6 @@
 # Neighborhood map project
 
-This is the eighth required project on the [Udacity Front End Nanodegree](https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001).
+This is the eighth required project on the [Udacity Front End Nanodegree](https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001). 
 
 ## What is it
 
@@ -45,6 +45,10 @@ The following scheme shows how components are structured:
 2. Install dependencies with `npm install`.
 3. Build and start the server with `npm run serve`.
 4. Visit `http://localhost:5000`.
+
+### Online
+
+It is available online at [http://bycorsanchez.github.io/neighborhood-map](http://bycorsanchez.github.io/neighborhood-map).
 
 ## Technologies used
 
